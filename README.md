@@ -1,6 +1,7 @@
 ### Usage
 
-python main.py
+normal mode: python main.py
+batch mode:  python batch.py
 
 ### Prerequsites
 
