@@ -2,10 +2,11 @@
 from Tkinter import *
 import geturl
 import read
-from PIL import Image, ImageTk
+import socket
 
 fr = open("fileList.txt","r")
 fileList = fr.readlines()
+fr.close()
 
 class Application(Frame):
 	def nextEntry(self):
@@ -27,9 +28,19 @@ class Application(Frame):
 		#geturl.search(name, info)
 	
 	def identify(self):
+		print self.cnt
 		name = self.entry.get()
-		info = self.entry2.get()
-		geturl.search(name, info)
+		org = self.entry2.get()
+		title = self.entry3.get()
+		keyword = self.entry4.get().split()
+		ans = geturl.search(name, org, title, keyword)
+		print ans
+		res = input()
+		if res == 1: self.A += 1
+		elif res == 2: self.B += 1
+		elif res == 3: self.C += 1
+		else: self.D +=1
+		print self.A,self.B,self.C,self.D
 
 	def createWidgets(self):
 		self.title = Label(self)
@@ -106,8 +117,13 @@ class Application(Frame):
 		Frame.__init__(self,master)
 		self.grid()
 		self.createWidgets()
-		self.cnt = 0
+		self.cnt = 584
+		self.A = 130
+		self.B = 2
+		self.C = 13
+		self.D = 355
 
+socket.setdefaulttimeout(5)
 root = Tk()
 app = Application(master = root)
 app.mainloop()
